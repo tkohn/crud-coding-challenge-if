@@ -1,4 +1,4 @@
-package de.torstenkohn.crud.crudbackend;
+package de.torstenkohn.crud.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

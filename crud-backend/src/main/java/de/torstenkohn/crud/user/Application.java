@@ -1,4 +1,4 @@
-package de.torstenkohn.crud.crudbackend;
+package de.torstenkohn.crud.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

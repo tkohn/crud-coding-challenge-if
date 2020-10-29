@@ -4,11 +4,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
     container_name: es01
     environment:
-      - node.name=es01
-      - cluster.name=es-docker-cluster
-      - cluster.initial_master_nodes=es01
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
     ulimits:
       memlock:
         soft: -1
@@ -18,7 +14,25 @@ services:
     ports:
       - 9200:9200
     networks:
-      - elastic
+      - nw-crud-challenge
+
+
+  crud-backend:
+    build:
+      context: ./crud-backend
+    image: crud-backend
+    container_name: crud-backend
+    environment:
+      - de.torstenkohn.crud.elasticsearch.host=es01
+    ports:
+      - 8080:8080
+    expose:
+      - "8080"
+    networks:
+      - nw-crud-challenge
+    depends_on:
+      - es01
+
 
 volumes:
   data01:
@@ -26,5 +40,5 @@ volumes:
 
 
 networks:
-  elastic:
+  nw-crud-challenge:
     driver: bridge

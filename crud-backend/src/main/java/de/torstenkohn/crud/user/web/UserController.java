@@ -51,8 +51,16 @@ public class UserController {
   }
 
   @DeleteMapping("/{userId}")
-  ResponseEntity<?> delete(@PathVariable Long userId) {
+  ResponseEntity<?> delete(@PathVariable String userId) {
+
+    ResponseEntity<User> response = findById(userId);
+    if (response.getStatusCode().isError()) {
+      return response;
+    }
+
+    userRepository.delete(response.getBody());
     return ResponseEntity.ok().build();
+
   }
 
 }
